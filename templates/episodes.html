@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ anime }} Episodes</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h3 {
+            background-color: #0078D7;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center; /* Align vertically */
+            gap: 10px; /* Space between number and title */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .episode-number {
+            font-weight: bold;
+            color: #0078D7;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .episode-title {
+            color: #555;
+            flex-grow: 1; /* Allow title to take available space */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            h3 {
+                font-size: 1.2em;
+                padding: 8px;
+            }
+
+            li {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h3>{{ anime }} Episodes are:</h3>
+    <ul>
+        {% for episode in episodes %}
+            <li>
+                <span class="episode-number">{{ loop.index }}.</span>
+                <span class="episode-title">{{ episode }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
