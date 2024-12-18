@@ -1,5 +1,6 @@
-import requests
+import requests, os
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
 def fetch_episodes(anime_name):
     """
@@ -7,7 +8,8 @@ def fetch_episodes(anime_name):
     """
     url_name = anime_name.lower().replace(" ", "-")
     
-    base_url = "https://www.animefillerlist.com/shows/"
+    load_dotenv()
+    base_url = os.getenv('BASE_URL')
     url = base_url + url_name
     response = requests.get(url)
 
@@ -24,14 +26,5 @@ def fetch_episodes(anime_name):
 
     return [ep.get_text(strip=True) for ep in episodes]
 
-def main():
-    anime_name = input("Enter Anime Name = ")
-    episodes = fetch_episodes(anime_name)
-
-    if episodes:
-        print(f"{anime_name.capitalize()} episodes are listed :- ")
-        for idx, name in enumerate(episodes):
-            print(f"{idx+1} - {name}")
-
 if __name__ == "__main__":
-    main()
+    pass

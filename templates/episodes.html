@@ -3,97 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ anime }} Episodes</title>
+    <title>{{anime}}</title>
     <style>
-        /* General reset */
-        * {
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.6;
+            background-color: #f9f9f9; /* Light gray background */
+            color: #333; /* Dark gray text */
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             min-height: 100vh;
         }
 
-        h3 {
-            background-color: #0078D7;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            margin: 20px auto;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        ul {
-            list-style: none;
-            margin: 20px 0;
-            padding: 0;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        li {
-            background-color: #fff;
-            margin: 8px 0;
-            padding: 10px 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .container {
             display: flex;
-            align-items: center; /* Align vertically */
-            gap: 10px; /* Space between number and title */
-            transition: transform 0.2s ease-in-out;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff; /* White background */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            padding: 20px;
+            margin: 20px;
         }
 
-        li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .container ul {
+            list-style: none; /* Remove default bullet points */
+            padding: 0;
+            margin: 0;
+            width: 100%;
         }
 
-        .episode-number {
+        .container li {
+            display: grid;
+            grid-template-columns: 50px 1fr; /* Fixed width for numbers */
+            align-items: center;
+            background-color: #f0f8ff; /* Light blue background for list items */
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .container li:hover {
+            background-color: #007BFF; /* Blue background on hover */
+            color: #fff; /* White text on hover */
+            transform: scale(1.02); /* Slightly enlarge the item */
+        }
+
+        .container li span {
             font-weight: bold;
-            color: #0078D7;
-            flex-shrink: 0; /* Prevent shrinking */
+            text-align: center; /* Ensure numbers are centered */
         }
 
-        .episode-title {
-            color: #555;
-            flex-grow: 1; /* Allow title to take available space */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007BFF; /* Blue heading color */
+            text-align: center;
         }
 
-        /* Responsive Design */
-        @media (max-width: 500px) {
-            h3 {
-                font-size: 1.2em;
-                padding: 8px;
-            }
-
-            li {
-                font-size: 0.9em;
-            }
+        #danger {
+            color: red;
+            /* background-color: rgba(180, 6, 6, 0.412); */
         }
     </style>
 </head>
 <body>
-    <h3>{{ anime }} Episodes are:</h3>
-    <ul>
-        {% for episode in episodes %}
-            <li>
-                <span class="episode-number">{{ loop.index }}.</span>
-                <span class="episode-title">{{ episode }}</span>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <ul>
+            {% if episodes %}
+                <h1>{{anime}} Episodes</h1>
+                {% for e in episodes %}
+                    <li><span>{{loop.index}}</span>{{e}}</li>
+                {% endfor %}
+            {% else %}
+                <h1 id="danger">Anime is not Available or Incorrect Spelling! </h1>
+            {% endif %}
+        </ul>
+    </div>
 </body>
 </html>

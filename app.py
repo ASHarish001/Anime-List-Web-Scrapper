@@ -1,21 +1,27 @@
-from flask import Flask, render_template
+from flask import Flask, url_for, redirect, render_template, request
 from scrapper import fetch_episodes
 
 app = Flask(__name__)
-@app.route('/')
-def home():
-    return render_template('home.html')    
 
-@app.route("/<name>")
-def display_episodes(name):
+@app.route('/', methods=['POST', 'GET'])
+@app.route('/anime', methods=['POST', 'GET'])
+def anime():
+    if request.method == "POST":
+        anime_name = request.form['name']
+        return redirect(url_for("episodes", name=anime_name))
+    else:
+        return render_template('anime.html')
+
+@app.route("/<name>", methods=['GET'])
+def episodes(name):
     episodes = fetch_episodes(name)
-    name = name.split('-')
-    s = ''
-    for word in name:
-        s += word.capitalize() + ' '
+    word_list = name.split(' ')
+    name = ''
 
-    name = s   
-    return render_template('episodes.html', episodes=episodes, anime=name)
+    for word in word_list:
+        name += word.capitalize() + ' '
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True)
+    return  render_template('episodes.html', anime=name, episodes=episodes)
+
+if __name__ == '__main__':
+    app.run(debug=True)
